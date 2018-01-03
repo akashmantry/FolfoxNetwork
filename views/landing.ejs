@@ -1,0 +1,52 @@
+<html>
+  <%include partials/header%>
+  <body>
+    <div class="sign-up-size">
+      <form id="sign_up_form">
+        <div class="form-group row">
+          <label for="inputName3" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-3">
+            <input id="name" name="name" type="text" class="form-control" id="inputName3" placeholder="Name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-3">
+            <input id="email" name="email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-3">
+            <input id="password" name="password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-5">
+            <button id="register_user" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Up</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <img class="laptop-image-size" src="http://localhost:3000/user_profile_images/laptop.png">
+    </div>
+  </body>
+
+  <script>
+    $("#register_user").on("click", function(){
+      $.ajax({
+        method: "POST",
+        url: "/sign_up",
+        data: $("#sign_up_form").serialize(),
+        success: function(){
+          location.href = "http://localhost:3000/home";
+        },
+        error: function(err){
+          $("#name, #email, #password").val("");
+        }
+      })
+    });
+  </script>
+</html>

@@ -1,0 +1,54 @@
+<%include partials/header%>
+<html>
+  <body>
+    <ul class="list-group" id="contact-list">
+      <%user_friends.forEach(function(friend){%>
+      <li class="list-group-item potential_friend">
+        <div class="row">
+          <div class="col-3 img-align">
+              <img src="http://localhost:3000/user_profile_images/<%=friend.user_profile.profile_pic%>" class="rounded-circle img-thumbnail img" />
+          </div>
+          <div class="col-6 friend-profile">
+              <span class="name"><%=friend.name%></span><br/>
+              <button id="view_button_<%=friend.member_id%>" type="button" class="btn btn-default">
+                <span class="fa fa-eye text-muted c-info"></span>
+              </button>
+              <button type="button" id="<%=friend.member_id%>" class="request_button btn btn-default">
+                <span class="fa fa-user-plus text-muted c-info"></span>
+              </button>
+          </div>
+        </div>
+      <div class="clearfix"></div>
+    </li>
+      <%})%>
+    </ul>
+    <!-- <%user_friends.forEach(function(friend){%>
+      <div class="card-temp potential_friend">
+        <img src="http://localhost:3000/user_profile_images/<%=friend.user_profile.profile_pic%>" class="img-style">
+        <h1 onclick="window.location.href='http://localhost:3000/user_profile/<%=friend.member_id%>'"><%=friend.name%></h1>
+        <p class="title"><%=friend.user_profile.location%></p>
+        <button id="<%=friend.member_id%>" class="request_button button-temp">Send Friend Request</button>
+      </div>
+    <%})%> -->
+  </body>
+  <script>
+    $(".request_button").on("click", function(){
+      var clicked_button = $(this);
+      $.ajax({
+        method: "POST",
+        url: "/friend_request",
+        contentType: "application/json",
+        data: JSON.stringify({"friend_member_id": clicked_button.attr("id")}),
+        success: function(){
+          clicked_button.closest(".potential_friend").remove();
+        }
+      });
+    });
+    $("[id^=view_button]").on("click", function(){
+      var clicked_button = $(this);
+      var id = clicked_button.attr("id").split('view_button_')[1];
+      console.log(id);
+      window.open('http://localhost:3000/user_profile/'+id);
+    });
+  </script>
+</html>

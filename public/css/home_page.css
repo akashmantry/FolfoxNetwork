@@ -1,0 +1,174 @@
+.list-size{
+	width: 250px;
+	text-align: center;
+}
+
+.home-sizing{
+	margin-top: 30px;
+	margin-left: 150px;
+	margin-right: 150px;
+	margin-bottom: 30px;
+}
+
+.form-sizing{
+	width: 63%;
+	margin-left: 18%;
+	margin-bottom: 20px;
+}
+
+.comment-form{
+	display: none;
+}
+
+.jumbotron-sizing{
+	width: 63%;
+	margin-left: 18%;
+	margin-bottom: 20px;
+	height: 150px;
+}
+
+.card-img-left {
+  border-bottom-left-radius: calc(.25rem - 1px);
+  border-top-left-radius: calc(.25rem - 1px);
+  float: left;
+  padding-right: 1em;
+  margin-bottom: -1.25em;
+}
+
+.card-body-style{
+	float: right;
+	margin-top: -100px;
+	margin-left: 90px;
+}
+
+h5 { cursor: pointer; }
+
+#community_header{
+	text-align: center;
+}
+
+#community_statuses_div{
+	width: 50%;
+ 	margin: auto;
+ 	text-align: center
+}
+
+#submit_status_button{
+	margin-top: 20px;
+}
+
+#find_friends_redirect{
+	float: right;
+}
+
+.user_statuses{
+	list-style-type: none;
+}
+
+.user_statuses li{
+	width: 65%;
+	margin-left: 15%;
+	margin-bottom: 20px;
+}
+
+.user_statuses li img{
+	width: 108px;
+	float: left;
+	clear: left;
+
+}
+
+.user_statuses li p{
+	float: left;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	clear: left;
+}
+
+.comment_statuses{
+	list-style-type: none;
+	margin-top: 10px;
+}
+
+.comment_statuses li{
+	width: 100%;
+	margin-left: 0%;
+	margin-bottom: 20px;
+}
+
+.comment_statuses li img{
+	width: 108px;
+	float: left;
+	clear: left;
+
+}
+
+.comment_statuses li p{
+	float: left;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	clear: left;
+}
+
+.poster_name{
+	float: left;
+	margin-left: 20px;
+}
+
+.clearfix:before,
+.clearfix:after{
+	content: "";
+	display: block;
+}
+
+.clearfix:after{
+	clear:both;
+}
+
+#statuses_textarea{
+	resize: none;
+}
+
+.cont{
+	float: left;
+	margin-left: 50px;
+	margin-top: 30px;
+}
+
+.friends-container{
+	float: right;
+	margin-right: 50px;
+	margin-top: -900px;
+}
+
+.margin-circle{
+	margin-left: 70px;
+	color: #32CD32;
+}
+.main-section{
+	border:1px solid #138496;
+	background-color: #fff;
+}
+.profile-header{
+	background-color: #17a2b8;
+	height:150px;
+}
+.user-detail{
+	margin:-50px 0px 30px 0px;
+}
+.user-detail img{
+	height:100px;
+	width:100px;
+}
+.user-detail h5{
+	margin:15px 0px 5px 0px;
+}
+.user-social-detail{
+	padding:15px 0px;
+	background-color: #17a2b8;
+}
+.user-social-detail a i{
+	color:#fff;
+	font-size:23px;
+	padding: 0px 5px;
+}

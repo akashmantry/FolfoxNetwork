@@ -1,0 +1,286 @@
+<%include partials/header%>
+<html>
+  <body>
+<div class="container">
+    <div class="row m-y-2">
+
+        <div class="col-lg-8 push-lg-4">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#friends" data-toggle="tab" class="nav-link">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#friend_requests" data-toggle="tab" class="nav-link">Friend Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                </li>
+            </ul>
+            <div class="tab-content p-b-3">
+                <div class="tab-pane active" id="profile">
+                  <div class="col-lg-2 pull-lg-4 text-xs-center photo-container profile_info" >
+                      <img id="profile_picture_div" src="http://localhost:3000/user_profile_images/<%=user.user_profile.profile_pic%>"
+                       class="rounded-circle img-thumbnail img" alt="avatar">
+                      <h6 class="m-t-2 name"><%=user.name%></h6>
+                  </div>
+                    <h4 class="m-y-2">User Profile</h4>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <h6>Location</h6>
+                            <p>
+                                <%=user.user_profile.location%>
+                            </p>
+                            <h6>About</h6>
+                            <p>
+                                <%=user.user_profile.description%>
+                            </p>
+                            <h6>Interests</h6>
+                            <p>
+                                <%=user.user_profile.interests%>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Recent Tags</h6>
+                            <a href="" class="tag tag-default tag-pill">html5</a>
+                            <a href="" class="tag tag-default tag-pill">react</a>
+                            <a href="" class="tag tag-default tag-pill">codeply</a>
+                            <a href="" class="tag tag-default tag-pill">angularjs</a>
+                            <a href="" class="tag tag-default tag-pill">css3</a>
+                            <a href="" class="tag tag-default tag-pill">jquery</a>
+                            <a href="" class="tag tag-default tag-pill">bootstrap</a>
+                            <a href="" class="tag tag-default tag-pill">responsive-design</a>
+                            <hr>
+                            <span class="tag tag-primary"><i class="fa fa-user"></i> 900 Friends</span>
+                            <span class="tag tag-danger"><i class="fa fa-eye"></i> 245 Views</span>
+                        </div>
+                        <div class="col-md-12">
+                            <h4 class="m-t-2"><span class="fa fa-clock-o ion-clock pull-xs-right"></span> Recent Activity</h4>
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--/row-->
+                </div>
+                <div class="tab-pane" id="friends">
+                  <ul class="list-group" id="contact-list">
+                    <%user.friends.forEach(function(friend){%>
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-md-3">
+                            <img src="http://localhost:3000/user_profile_images/<%=friend.profile_pic%>" class="rounded-circle img-thumbnail img" />
+                        </div>
+                        <div class="col-md-3 friend-profile">
+                            <span class="name"><%=friend.friend_name%></span><br/>
+                            <button onclick="window.location.href='http://localhost:3000/user_profile/<%=friend.member_id%>'" type="button" class="btn btn-default">
+                              <span class="fa fa-eye text-muted c-info"></span>
+                            </button>
+                            <button type="button" id="<%=friend.member_id%>" class="btn btn-default chat_button">
+                              <span class="fa fa-comments text-muted c-info"></span>
+                            </button>
+                        </div>
+                      </div>
+                    <div class="clearfix"></div>
+                  </li>
+                    <%})%>
+                  </ul>
+                </div>
+                <div class="tab-pane" id="friend_requests">
+                  <ul class="list-group" id="contact-list">
+                    <%user.friend_requests.forEach(function(request){%>
+                    <li class="list-group-item">
+                      <div class="row potential_friend">
+                        <div class="col-md-3">
+                            <img src="http://localhost:3000/user_profile_images/<%=request.profile_pic%>" class="rounded-circle img-thumbnail img" />
+                        </div>
+                        <div id="<%=request.member_id%>" class="col-md-3 friend-profile">
+                            <span class="name"><%=request.friend_name%></span><br/>
+                            <button onclick="window.location.href='http://localhost:3000/user_profile/<%=request.member_id%>'" type="button" class="btn btn-default">
+                              <span class="fa fa-eye text-muted c-info"></span>
+                            </button>
+                            <button type="button" id="accept_friend_request" class="btn btn-default">
+                              <span class="fa fa-check text-muted c-info"></span>
+                            </button>
+                        </div>
+                      </div>
+                    <div class="clearfix"></div>
+                  </li>
+                    <%})%>
+                  </ul>
+                </div>
+                <div class="tab-pane" id="edit">
+                    <h4 class="m-y-2">Edit Profile</h4>
+                    <form role="form" id="edit_profile_form">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Name</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" name="name" type="text" value="<%=user.name%>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Location</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" name="location" type="text" value="<%=user.user_profile.location%>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Description</label>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" rows="3" name="description"><%=user.user_profile.description%></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Interests</label>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" rows="3" name="interests"><%=user.user_profile.interests%></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Change Profile Pic</label>
+                            <div class="col-lg-9">
+                                  <input type="file" class="form-control-file" id="upload_profile_pic" onchange="uploadProfileImage()">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label"></label>
+                        <div class="col-lg-9">
+                          <button id="save_profile_button" type="button" class="btn btn-outline-success my-2 my-sm-0">Save changes</button>
+                          <button id="cancel_edit_profile" type="button" class="btn btn-outline-success my-2 my-sm-0">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div id="chat_section_wrapper"></div>
+</body>
+<script>
+  var socket = io();
+  socket.emit("attach_user_info", {"member_id": "<%=user.member_id%>", "user_name": "<%=user.name%>"});
+
+  $("#save_profile_button").on("click", function(){
+    $.ajax({
+      method: "POST",
+      url: "/user_profile/edit",
+      data: $("#edit_profile_form").serialize(),
+      success: function(){
+        // $("#edit_profile_form_container").hide();
+
+      },
+      err: function(){
+        console.log("Error while saving profile information");
+      }
+    });
+  });
+
+  $("#edit_profile_button").on("click", function(){
+    $("#edit_profile_form_container").show();
+  });
+
+  $("#cancel_edit_profile").on("click", function(){
+    // $("#edit_profile_form_container").hide();
+  });
+
+  function uploadProfileImage(){
+    var image_to_upload = $("#upload_profile_pic")[0].files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(image_to_upload);
+    reader.onload = function(){
+      var image_data = {"image_data": reader.result.split(",")[1], "image_type": image_to_upload.type.split("/")[1]};
+      $.ajax({
+        method: "POST",
+        url: "profile_pic/upload",
+        data: JSON.stringify(image_data),
+        contentType: "application/json",
+        success: function(updated_profile_pic){
+          $("#profile_picture_div").attr('src', "http://localhost:3000/user_profile_images/" + updated_profile_pic);
+        },
+        error: function(){
+          console.log("Error while uploading profile pic");
+        }
+      })
+    }
+  }
+
+  $("#accept_friend_request").on("click", function(){
+    var friend_member_id = $(this).parent().attr("id");
+    var clicked_button = $(this);
+    $.ajax({
+      method: "POST",
+      url: "/accept_friend_request",
+      data: JSON.stringify({"member_id" : friend_member_id}),
+      contentType: "application/json",
+      success: function(){
+        clicked_button.closest(".potential_friend").remove();
+      }
+    })
+  });
+
+  $(".chat_button").on("click", function(){
+    var chat_box = '<div class="chat_section"><div id="chat_title_section>"<span>Folfox Network Chat</span><div class="chat_close"><img src="http://localhost:3000/images/node_connect_close.png"></div></div><div class="all_chat_messages"></div><div id="send_message"><input id="send_message_input" type="text" placeholder=""></div></div>'
+    $("#chat_section_wrapper").append(chat_box);
+  })
+
+  $(document).on("click", ".chat_close", function(){
+    $(".chat_section").remove();
+  })
+
+  socket.on("message_from_server", function(received_message){
+    $(".all_chat_messages").append("<div class='usr_msg'>" + "<span class='user_with_message'>" +
+                                   received_message.user_name + ": " +
+                                   "</span>" +
+                                   "<div class='usr_msg_box'>" +
+                                   "<p>" + received_message.message + "</p>" +
+                                   "</div></div>");
+  })
+
+  $(document).on("keypress", "#send_message_input", function(e){
+    if(e.keyCode === 13){
+      var chat_message_content = $(this).val();
+      $(".all_chat_messages").append("<div class='usr_msg'>" + "<span class='user_with_message'>You: </span>" +
+                                     "<div class='usr_msg_box'>" +
+                                     "<p>" + chat_message_content + "</p>" +
+                                     "</div></div>");
+
+      socket.emit("message_from_client", {"message": chat_message_content, "friend_member_id": $(".chat_button").attr("id")
+        });
+      $(this).val("");
+    }
+  })
+</script>
+</html>

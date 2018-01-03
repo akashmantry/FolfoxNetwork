@@ -1,0 +1,156 @@
+<%include partials/header%>
+<html>
+  <body>
+        <div class="cont col-lg-2 col-sm-6 col-12 main-section text-center">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+            </div>
+            <div class="row user-detail">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <img src="http://localhost:3000/user_profile_images/<%=user.user_profile.profile_pic%>" class="rounded-circle img-thumbnail">
+                    <h5><%=user.name%></h5>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i><%=user.user_profile.location%></p>
+                    <hr>
+                    <p><%=user.user_profile.description%></p>
+                </div>
+            </div>
+            <div class="row user-social-detail">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    <div class="home-sizing">
+      <div class="jumbotron jumbotron-fluid jumbotron-sizing">
+        <div class="container">
+          <h1 class="display-4">Welcome <%=name%></h1>
+        </div>
+      </div>
+
+      <form "form-horizontal" class="form-sizing">
+        <div class="form-group">
+          <label for="post">What's your status?</label>
+          <textarea id="statuses_textarea" class="form-control" rows="3" name = "post"></textarea>
+        </div>
+        <button id="submit_status_button" type="submit" class="btn btn-outline-success my-2 my-sm-0">Post</button>
+      </form>
+
+      <br>
+      <ol class="user_statuses">
+        <%user_statuses.forEach(function(user_status){%>
+          <li class="clearfix">
+            <div class="card">
+              <img class="card-img-left" src="http://localhost:3000/user_profile_images/<%=user_status.profile_pic%>" alt="Card image cap">
+              <div class="card-body card-body-style">
+                <h5 onclick="location.href='http://localhost:3000/user_profile/<%=user_status.member_id%>'" class="card-title"><%=user_status.name%></h5>
+                <p class="card-text"><%=user_status.user_status%></p>
+                <p class="card-text"><small class="text-muted">Last updated <%=user_status.postCreatedAt%></small></p>
+              </div>
+              <div class="card-footer">
+                <div id="<%=user_status.status_id%>" class="btn-group" role="group" aria-label="Basic example">
+                  <button id="like_button_<%=user_status.status_id%>" class="btn btn-outline-success my-2 my-sm-0" type="button">Like
+                    <span id="like_<%=user_status.status_id%>" class="badge badge-light"><%=user_status.likes%></span>
+                  </button>
+                  <button id="comment_button_<%=user_status.status_id%>" class="btn btn-outline-success my-2 my-sm-0" type="button">Comment</button>
+                </div>
+
+                <ol class="comment_statuses" id="comments_<%=user_status.status_id%>">
+                  <%user_status.comments.forEach(function(comment){%>
+                    <li class="clearfix">
+                      <div class="card">
+                        <img class="card-img-left" src="http://localhost:3000/user_profile_images/<%=comment.comment_profile_pic%>" alt="Card image cap">
+                        <div class="card-body card-body-style">
+                          <h5 onclick="location.href='http://localhost:3000/user_profile/<%=comment.member_id%>'" class="card-title"><%=comment.comment_name%></h5>
+                          <p class="card-text"><%=comment.comment_status%></p>
+                          <p class="card-text"><small class="text-muted">Last updated <%=comment.commentCreatedAt%></small></p>
+                        </div>
+                      </div>
+                    </li>
+                  <%})%>
+                </ol>
+
+              </div>
+            </div>
+          </li>
+
+          <form "form-horizontal" id="comment_form_<%=user_status.status_id%>" class="form-sizing comment-form">
+            <div class="form-group">
+              <textarea id="comment_textarea_<%=user_status.status_id%>" class="form-control" rows="3" name = "post_comment"></textarea>
+            </div>
+            <button id="submit_comment_button_<%=user_status.status_id%>" type="submit" class="btn btn-outline-success my-2 my-sm-0">Comment</button>
+          </form>
+        <%})%>
+      </ol>
+
+    </div>
+
+    <div class="friends-container">
+      <h6>Friends</h6>
+      <ul class="list-group list-size">
+        <%user.friends.forEach(function(friend){%>
+          <li class="list-group-item"><%=friend.friend_name%>
+          </li>
+        <%})%>
+      </ul>
+    </div>
+  </body>
+  <script>
+    $("#submit_status_button").on("click", function(){
+      var status_val = $("#statuses_textarea").val();
+      $("#statuses_textarea").val("");
+      $.ajax({
+        url: "/user_status/create",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({"user_status": status_val}),
+        success: function(saved_status){
+          $(".user_statuses").append("<li class='clearfix'><img src='http://localhost:3000/user_profile_images/"
+          + saved_status.profile_pic + "'><div class='poster_name'>" + saved_status.name + "</div><p>" + status_val
+          + "</p></li>");
+        },
+        err: function(){
+          console.log("Error");
+        }
+      });
+    });
+
+    $("[id^=like_button_]").on("click", function(){
+      var id = $(this).parent().attr("id");
+      $.ajax({
+        url: "/user_status/like",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({"id": id}),
+        success: function(){
+          var likes = Number($('#like_'+id).text());
+          $('#like_'+id).text(likes+1);
+        },
+        err: function(){
+          console.log("Error");
+        }
+      });
+    });
+
+    $("[id^=comment_button_]").on("click", function(){
+      var id = $(this).parent().attr("id");
+      $('#comment_form_'+id).toggle();
+    });
+
+    $("[id^=submit_comment_button_]").on("click", function(){
+      var id = $(this).parent().attr("id").split("comment_form_")[1];
+      var status_val = $("#comment_textarea_"+id).val();
+      $("#comment_textarea_"+id).val("");
+      $.ajax({
+        url: "/user_status/comment",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({"user_status": status_val, "id": id}),
+        success: function(saved_status){
+        },
+        err: function(){
+          console.log("Error");
+        }
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,81 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/landing.css">
+  <link rel="stylesheet" type="text/css" href="/css/home_page.css">
+  <link rel="stylesheet" type="text/css" href="/css/user_profile.css">
+  <link rel="stylesheet" type="text/css" href="/css/friends.css">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/user_profile_visit.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="navbar-brand mb-0 h1">Folfox Network</span>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if(display_nav_bar == true) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:3000/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:3000/user_profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:3000/friends">Find friends</a>
+          </li>
+      <% } %>
+        </ul>
+      <% if(display_nav_bar == false) { %>
+        <form id="sign_in_form" class="form-inline my-2 my-lg-0">
+          <input id="usr_email" name="email" class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Email">
+          <input id="usr_pwd" name="password" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password">
+          <button id="sign_in_user" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        </form>
+      <% } %>
+      <% if(display_nav_bar == true) { %>
+        <form id="sign_in_form" class="form-inline my-2 my-lg-0">
+          <button id="log_out_user" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+      <% } %>
+    </div>
+  </nav>
+
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
+      $("#sign_in_user").on("click", function(){
+        $.ajax({
+          method: "POST",
+          url: "/login",
+          data: $("#sign_in_form").serialize(),
+          success: function(){
+            location.href = "http://localhost:3000/home";
+          },
+          error: function(err){
+            $("#usr_email, #usr_pwd").val("");
+          }
+        })
+      });
+    </script>
+    <script>
+      $("#log_out_user").on("click", function(){
+        $.ajax({
+          url: "/logout",
+          method: "POST",
+          success: function(){
+            location.href = "http://localhost:3000/";
+          },
+          error: function(){
+
+          }
+        });
+      });
+    </script>
+  </body>

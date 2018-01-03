@@ -1,0 +1,94 @@
+<%include partials/header%>
+<html>
+  <body>
+    <div class="col-lg-2 pull-lg-4 text-xs-center photo-container-visit profile_info" >
+        <img id="profile_picture_div" src="http://localhost:3000/user_profile_images/<%=user.user_profile.profile_pic%>"
+         class="rounded-circle img-thumbnail img" alt="avatar">
+        <h6 class="m-t-2 name"><%=user.name%></h6>
+    </div>
+      <h4 class="m-y-2 user-profile-h">User Profile</h4>
+      <div class="row user-profile-div">
+
+          <div class="col-md-6">
+              <h6>Location</h6>
+              <p>
+                  <%=user.user_profile.location%>
+              </p>
+              <h6>About</h6>
+              <p>
+                  <%=user.user_profile.description%>
+              </p>
+              <h6>Interests</h6>
+              <p>
+                  <%=user.user_profile.interests%>
+              </p>
+          </div>
+          <div class="col-md-6">
+              <h6>Recent Tags</h6>
+              <a href="" class="tag tag-default tag-pill">html5</a>
+              <a href="" class="tag tag-default tag-pill">react</a>
+              <a href="" class="tag tag-default tag-pill">codeply</a>
+              <a href="" class="tag tag-default tag-pill">angularjs</a>
+              <a href="" class="tag tag-default tag-pill">css3</a>
+              <a href="" class="tag tag-default tag-pill">jquery</a>
+              <a href="" class="tag tag-default tag-pill">bootstrap</a>
+              <a href="" class="tag tag-default tag-pill">responsive-design</a>
+              <hr>
+              <span class="tag tag-primary"><i class="fa fa-user"></i> 900 Friends</span>
+              <span class="tag tag-danger"><i class="fa fa-eye"></i> 245 Views</span>
+          </div>
+          <div class="col-md-12">
+              <h4 class="m-t-2"><span class="fa fa-clock-o ion-clock pull-xs-right"></span> Recent Activity</h4>
+              <table class="table table-hover table-striped">
+                  <tbody>
+                      <tr>
+                          <td>
+                              <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
+                          </td>
+
+                      </tr>
+                      <tr>
+                          <td>
+                              <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
+                          </td>
+
+                      </tr>
+                      <tr>
+                          <td>
+                              <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+    <!-- <div id="user_profile_visit_div">
+      <div class="profile_info" id="profile_picture_div">
+        <h2>Name: <%=user.name%></h2>
+        <h4>Location: <%=user.user_profile.location%></h4>
+        <img src="http://localhost:3000/user_profile_images/<%=user.user_profile.profile_pic%>">
+      </div>
+
+      <div class="profile_info" id="about_me">
+        <h3>About Me</h3>
+        <p><%=user.user_profile.description%></p>
+      </div>
+
+      <div class="profile_info" id="interests">
+        <h3>Interests</h3>
+        <p><%=user.user_profile.interests%></p>
+      </div>
+    </div> -->
+  </body>
+</html>
