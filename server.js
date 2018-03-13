@@ -2,11 +2,16 @@ const Hapi = require("hapi");
 const server = new Hapi.Server();
 const mongoose = require("mongoose");
 const User = require("./database_models/user_model");
-const node_connect_db = mongoose.connect("mongodb://localhost/folfox_network");
+const node_connect_db = mongoose.connect(process.env.MONGO_HOST + '/api');//"mongodb://localhost/folfox_network");
 const moment = require('moment');
 moment().format();
 
-server.connection({port:3000});
+// Loads environment variables
+// Used only in development
+require('dotenv').config({silent: true});
+
+//server.connection({port:3000});
+server.connection({ port: process.env.PORT || 3000 });
 const io = require("socket.io")(server.listener);
 
 server.start(console.log("Server started"));
@@ -34,11 +39,13 @@ server.register(require("inert"), function(err){
 });
 
 server.register(require("hapi-auth-cookie"));
+
 server.auth.strategy("simple-cookie-strategy", "cookie",{
   cookie: "folfox_network_cookie",
   password: "abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef",
   isSecure: false
-})
+});
+
 
 server.route({
   method : "GET",

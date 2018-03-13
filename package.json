@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^5.0.1",
     "ejs": "^2.4.2",
     "hapi": "^13.4.1",
     "hapi-auth-cookie": "^6.1.1",
